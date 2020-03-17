@@ -1,5 +1,7 @@
 package com.spring.api.music_project.model;
 
+import java.util.Objects;
+
 public class Tracks {
 
     private String name;
@@ -27,5 +29,34 @@ public class Tracks {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Tracks{"
+                + "name='" + name + '\''
+                + ", duration=" + duration
+                + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        else if (o == null || getClass() != o.getClass()){
+            return false;
+        } else {
+        Tracks tracks = (Tracks) o;
+        return duration == tracks.duration &&
+                Objects.equals(name, tracks.name);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int primaryNumber = 545;
+        int result = primaryNumber * Objects.hash(name, duration);
+        return result;
     }
 }

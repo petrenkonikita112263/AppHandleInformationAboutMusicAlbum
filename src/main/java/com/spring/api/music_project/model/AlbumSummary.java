@@ -1,20 +1,22 @@
 package com.spring.api.music_project.model;
 
+import java.util.Objects;
+
 public class AlbumSummary {
 
     private String albumTitle;
     private Artist artistName;
     private int albumId;
-    private String albumPosterUrl;
+    private PosterImage posterImage;
 
     public AlbumSummary() {
     }
 
-    public AlbumSummary(String albumTitle, Artist artistName, int albumId, String albumPosterUrl) {
+    public AlbumSummary(String albumTitle, Artist artistName, int albumId, PosterImage posterImage) {
         this.albumTitle = albumTitle;
         this.artistName = artistName;
         this.albumId = albumId;
-        this.albumPosterUrl = albumPosterUrl;
+        this.posterImage = posterImage;
     }
 
     public String getAlbumTitle() {
@@ -41,11 +43,43 @@ public class AlbumSummary {
         this.albumId = albumId;
     }
 
-    public String getAlbumPosterUrl() {
-        return albumPosterUrl;
+    public PosterImage getPosterImage() {
+        return posterImage;
     }
 
-    public void setAlbumPosterUrl(String albumPosterUrl) {
-        this.albumPosterUrl = albumPosterUrl;
+    public void setPosterImage(PosterImage posterImage) {
+        this.posterImage = posterImage;
+    }
+
+    @Override
+    public String toString() {
+        return "AlbumSummary{"
+                + "albumTitle='" + albumTitle + '\''
+                + ", artistName=" + artistName
+                + ", albumId=" + albumId
+                + ", posterImage=" + posterImage
+                + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else {
+            AlbumSummary objectAlbum = (AlbumSummary) o;
+            return albumId == objectAlbum.albumId
+                    && Objects.equals(albumTitle, objectAlbum.albumTitle)
+                    && Objects.equals(artistName, objectAlbum.artistName)
+                    && Objects.equals(posterImage, objectAlbum.posterImage);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int primaryNumber = 74;
+        int result = primaryNumber * Objects.hash(albumTitle, artistName, albumId, posterImage);
+        return result;
     }
 }
