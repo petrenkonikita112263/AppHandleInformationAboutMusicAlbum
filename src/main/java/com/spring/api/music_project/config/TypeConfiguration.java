@@ -1,8 +1,7 @@
 package com.spring.api.music_project.config;
 
-import com.spring.api.music_project.model.convert.ContentConverter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,11 +12,14 @@ public class TypeConfiguration implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-
+        configurer.favorPathExtension(false).
+                favorParameter(true).
+                parameterName("format").
+                ignoreAcceptHeader(true).
+                useJaf(false).
+                defaultContentType(MediaType.APPLICATION_JSON).
+                mediaType("xml", MediaType.APPLICATION_XML).
+                mediaType("json", MediaType.APPLICATION_JSON);
     }
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new ContentConverter());
-    }
 }

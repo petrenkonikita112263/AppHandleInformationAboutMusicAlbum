@@ -4,30 +4,38 @@ import java.util.Objects;
 
 public class PosterImage {
 
-    private String text;
-    private String size;
+    private String storageUrl;
+    private String sizeFormat;
 
-    public String getText() {
-        return text;
+    public PosterImage() {
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public PosterImage(String storageUrl, String sizeFormat) {
+        this.storageUrl = storageUrl;
+        this.sizeFormat = sizeFormat;
     }
 
-    public String getSize() {
-        return size;
+    public String getStorageUrl() {
+        return storageUrl;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setStorageUrl(String storageUrl) {
+        this.storageUrl = storageUrl;
+    }
+
+    public String getSizeFormat() {
+        return sizeFormat;
+    }
+
+    public void setSizeFormat(String sizeFormat) {
+        this.sizeFormat = sizeFormat;
     }
 
     @Override
     public String toString() {
         return "PosterImage{"
-                + "text='" + text + '\''
-                + ", size='" + size + '\''
+                + "text='" + storageUrl + '\''
+                + ", size='" + sizeFormat + '\''
                 + '}';
     }
 
@@ -40,15 +48,15 @@ public class PosterImage {
             return false;
         } else {
             PosterImage objectPoster = (PosterImage) o;
-            return Objects.equals(text, objectPoster.text)
-                    && Objects.equals(size, objectPoster.size);
+            return Objects.equals(storageUrl, objectPoster.storageUrl)
+                    && Objects.equals(sizeFormat, objectPoster.sizeFormat);
         }
     }
 
     @Override
     public int hashCode() {
         int primaryNumber = 214;
-        int result = primaryNumber * Objects.hash(text, size);
+        int result = primaryNumber * Objects.hash(storageUrl, sizeFormat);
         return result;
     }
 }

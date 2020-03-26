@@ -4,37 +4,37 @@ import java.util.Objects;
 
 public class Tracks {
 
-    private String name;
-    private int duration;
+    private String trackName;
+    private String duration;
 
     public Tracks() {
     }
 
-    public Tracks(String name, int duration) {
-        this.name = name;
+    public Tracks(String trackName, String duration) {
+        this.trackName = trackName;
         this.duration = duration;
     }
 
-    public String getName() {
-        return name;
+    public String getTrackName() {
+        return trackName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTrackName(String trackName) {
+        this.trackName = trackName;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
     @Override
     public String toString() {
         return "Tracks{"
-                + "name='" + name + '\''
+                + "name='" + trackName + '\''
                 + ", duration=" + duration
                 + '}';
     }
@@ -49,14 +49,14 @@ public class Tracks {
         } else {
         Tracks tracks = (Tracks) o;
         return duration == tracks.duration &&
-                Objects.equals(name, tracks.name);
+                Objects.equals(trackName, tracks.trackName);
         }
     }
 
     @Override
     public int hashCode() {
         int primaryNumber = 545;
-        int result = primaryNumber * Objects.hash(name, duration);
+        int result = primaryNumber * Objects.hash(trackName, duration);
         return result;
     }
 }

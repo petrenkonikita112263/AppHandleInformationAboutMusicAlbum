@@ -1,22 +1,23 @@
 package com.spring.api.music_project.model;
 
+import java.util.List;
 import java.util.Objects;
 
 public class AlbumSummary {
 
     private String albumTitle;
-    private Artist artistName;
-    private int albumId;
-    private PosterImage posterImage;
+    private String artistName;
+    private List<PosterImage> listOfPosters;
+    private List<Tracks> collectionOfTracks;
 
     public AlbumSummary() {
     }
 
-    public AlbumSummary(String albumTitle, Artist artistName, int albumId, PosterImage posterImage) {
+    public AlbumSummary(String albumTitle, String artistName, List<PosterImage> listOfPosters, List<Tracks> collectionOfTracks) {
         this.albumTitle = albumTitle;
         this.artistName = artistName;
-        this.albumId = albumId;
-        this.posterImage = posterImage;
+        this.listOfPosters = listOfPosters;
+        this.collectionOfTracks = collectionOfTracks;
     }
 
     public String getAlbumTitle() {
@@ -27,38 +28,38 @@ public class AlbumSummary {
         this.albumTitle = albumTitle;
     }
 
-    public Artist getArtistName() {
+    public String getArtistName() {
         return artistName;
     }
 
-    public void setArtistName(Artist artistName) {
+    public void setArtistName(String artistName) {
         this.artistName = artistName;
     }
 
-    public int getAlbumId() {
-        return albumId;
+    public List<PosterImage> getListOfPosters() {
+        return listOfPosters;
     }
 
-    public void setAlbumId(int albumId) {
-        this.albumId = albumId;
+    public void setListOfPosters(List<PosterImage> listOfPosters) {
+        this.listOfPosters = listOfPosters;
     }
 
-    public PosterImage getPosterImage() {
-        return posterImage;
+    public List<Tracks> getCollectionOfTracks() {
+        return collectionOfTracks;
     }
 
-    public void setPosterImage(PosterImage posterImage) {
-        this.posterImage = posterImage;
+    public void setCollectionOfTracks(List<Tracks> collectionOfTracks) {
+        this.collectionOfTracks = collectionOfTracks;
     }
 
     @Override
     public String toString() {
-        return "AlbumSummary{"
-                + "albumTitle='" + albumTitle + '\''
-                + ", artistName=" + artistName
-                + ", albumId=" + albumId
-                + ", posterImage=" + posterImage
-                + '}';
+        return "AlbumSummary{" +
+                "albumTitle='" + albumTitle + '\'' +
+                ", artistName='" + artistName + '\'' +
+                ", listOfPosters=" + listOfPosters +
+                ", collectionOfTracks=" + collectionOfTracks +
+                '}';
     }
 
     @Override
@@ -69,17 +70,17 @@ public class AlbumSummary {
             return false;
         } else {
             AlbumSummary objectAlbum = (AlbumSummary) o;
-            return albumId == objectAlbum.albumId
-                    && Objects.equals(albumTitle, objectAlbum.albumTitle)
+            return Objects.equals(albumTitle, objectAlbum.albumTitle)
                     && Objects.equals(artistName, objectAlbum.artistName)
-                    && Objects.equals(posterImage, objectAlbum.posterImage);
+                    && Objects.equals(listOfPosters, objectAlbum.listOfPosters)
+                    && Objects.equals(collectionOfTracks, objectAlbum.collectionOfTracks);
         }
     }
 
     @Override
     public int hashCode() {
         int primaryNumber = 74;
-        int result = primaryNumber * Objects.hash(albumTitle, artistName, albumId, posterImage);
+        int result = primaryNumber * Objects.hash(albumTitle, artistName, listOfPosters, collectionOfTracks);
         return result;
     }
 }

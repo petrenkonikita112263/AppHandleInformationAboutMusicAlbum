@@ -2,14 +2,12 @@ package com.spring.api.music_project.model.service;
 
 import com.spring.api.music_project.model.AlbumSummary;
 
+import java.util.List;
+
 public interface IMusicService {
 
-    AlbumSummary printAllInfo();
+    List<AlbumSummary> printAllInfo();
 
-    AlbumSummary obtaineAlbumThroughName(String titleOfAlbum);
-
-    AlbumSummary obtaineAlbumThroughSigner(String nameOfArtist);
-
-
+    List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum);
 
 }
