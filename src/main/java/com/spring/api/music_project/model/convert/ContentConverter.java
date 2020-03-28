@@ -26,20 +26,24 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
         List<AlbumSummary> summaryList = new ArrayList<>();
         List<PosterImage> imageList = new ArrayList<>();
         List<Tracks> tracksList = new ArrayList<>();
-
         try {
             JSONObject rootObject = new JSONObject(responseAnswer);
-//            JSONArray album = rootObject.getJSONArray("album");
-//            for (int i = 0; i < album.length(); i++) {
-//
-////                json data of album
-//                JSONObject jsonAlbum = album.getJSONObject(i);
-
-//                newAlbum object that will create AlbumSummary
-
-
-//                take one more array
-                JSONArray poster = rootObject.getJSONArray("image");
+            JSONObject jsonAlbum = null;
+            if (rootObject.has("album")) {
+                jsonAlbum = rootObject.getJSONObject("album");
+            }
+                AlbumSummary newAlbum = new AlbumSummary();
+                String albumName = null;
+                if (jsonAlbum.has("name")) {
+                    albumName = jsonAlbum.getString("name");
+                }
+                String artistName = null;
+                if (jsonAlbum.has("artist")) {
+                    artistName = jsonAlbum.getString("artist");
+                }
+                newAlbum.setAlbumTitle(albumName);
+                newAlbum.setArtistName(artistName);
+                JSONArray poster = jsonAlbum.getJSONArray("image");
                 for (int j = 0; j < poster.length(); j++) {
                     JSONObject jsonPoster = poster.getJSONObject(j);
                     PosterImage newPoster = new PosterImage();
@@ -49,33 +53,23 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
                     newPoster.setSizeFormat(scalePicture);
                     imageList.add(newPoster);
                 }
-
-//                take last array
-                JSONArray track = rootObject.getJSONArray("tracks");
-                for (int k = 0; k < track.length(); k++) {
-                    JSONObject jsonTrack = track.getJSONObject(k);
+                JSONObject jsonTrack = jsonAlbum.getJSONObject("tracks");
+                JSONArray jsonArrayTracks = jsonTrack.getJSONArray("track");
+                for (int k = 0; k < jsonArrayTracks.length(); k++) {
+                    JSONObject newJsonTrack = jsonArrayTracks.getJSONObject(k);
                     Tracks newTrack = new Tracks();
-                    String trackName = jsonTrack.getString("name");
-                    String trackDuration = jsonTrack.getString("duration");
+                    String trackName = newJsonTrack.getString("name");
+                    String trackDuration = newJsonTrack.getString("duration");
                     newTrack.setTrackName(trackName);
                     newTrack.setDuration(trackDuration);
                     tracksList.add(newTrack);
                 }
-
-            AlbumSummary newAlbum = new AlbumSummary();
-            String albumName = rootObject.getString("name");
-            String artistName = rootObject.getString("artist");
-
-//                setting
-            newAlbum.setAlbumTitle(albumName);
-            newAlbum.setArtistName(artistName);
-
                 newAlbum.setListOfPosters(imageList);
                 newAlbum.setCollectionOfTracks(tracksList);
                 summaryList.add(newAlbum);
-
         } catch (JSONException e) {
-            LOGGER.error("Text text text .....", e);
+            LOGGER.error("Something went wrong, "
+                    + "can't value for object or object's not found", e);
         }
         return summaryList;
     }
