@@ -30,10 +30,11 @@ public class ApiController {
 //        return musicService.printAllInfo();
 //    }
 
-    @GetMapping(value = "/album/{signerName}/{albumTitle}")
+    @GetMapping(value = "/album/{signerName}/{albumTitle}/{format}")
     public ResponseEntity<List<AlbumSummary>> getAlbum(@PathVariable(name = "signerName") String signerName,
-                                                 @PathVariable(name = "albumTitle") String albumTitle) {
-        List<AlbumSummary> summaryList = musicService.obtaineAlbumThroughName(signerName, albumTitle);
+                                                 @PathVariable(name = "albumTitle") String albumTitle,
+                                                       @PathVariable(name = "format") String responseFormat) {
+        List<AlbumSummary> summaryList = musicService.obtaineAlbumThroughName(signerName, albumTitle, responseFormat);
         return new ResponseEntity<>(summaryList, HttpStatus.OK);
 //        return musicService.obtaineAlbumThroughName(albumTitle);
     }

@@ -20,13 +20,13 @@ public class MusicService implements IMusicService {
 
     private ContentConverter converter;
 
-//    @Autowired
     private ConversionService conversionService;
 
-        public MusicService(@Value("${APIkey}") String key,
+        public MusicService(@Value("${api_key}") String key,
                             ConversionService conversionService) {
-        this.uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl("http://ws.audioscrobbler.com/2.0/")
-                .queryParam("APIkey", key);
+        this.uriComponentsBuilder = UriComponentsBuilder
+                .fromHttpUrl("http://ws.audioscrobbler.com/2.0/?method=album.getinfo")
+                .queryParam("api_key", key);
         this.conversionService = conversionService;
     }
 
@@ -36,11 +36,9 @@ public class MusicService implements IMusicService {
     }
 
     @Override
-    public List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum) {
-        String urlLink = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=a222715dd6f605cdd9278e2c0accae39&artist"
-                + "=" + nameOfArtist + "&album=" + titleOfAlbum + "&format=json";
-//       String urlLink = uriComponentsBuilder.cloneBuilder().queryParam("artist",
-//               nameOfArtist).queryParam("album", titleOfAlbum).build().toString();
+    public List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum, String typeFormat) {
+       String urlLink = uriComponentsBuilder.cloneBuilder().queryParam("artist",
+               nameOfArtist).queryParam("album", titleOfAlbum).queryParam("format", typeFormat).build().toString();
        return conversionService.convert(urlLink, List.class);
     }
 

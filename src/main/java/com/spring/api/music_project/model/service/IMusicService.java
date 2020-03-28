@@ -8,6 +8,6 @@ public interface IMusicService {
 
     List<AlbumSummary> printAllInfo();
 
-    List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum);
+    List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum, String typeFormat);
 
 }

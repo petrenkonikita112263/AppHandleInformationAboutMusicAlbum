@@ -12,7 +12,7 @@ public class TypeConfiguration implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer.favorPathExtension(false).
+        configurer.favorPathExtension(true).
                 favorParameter(true).
                 parameterName("format").
                 ignoreAcceptHeader(true).
