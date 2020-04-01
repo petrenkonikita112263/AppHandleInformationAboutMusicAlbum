@@ -35,21 +35,19 @@ public class Tracks {
     public String toString() {
         return "Tracks{"
                 + "name='" + trackName + '\''
-                + ", duration=" + duration
-                + '}';
+                + ", duration=" + duration + '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        }
-        else if (o == null || getClass() != o.getClass()){
+        } else if ((o == null) || (getClass() != o.getClass())) {
             return false;
         } else {
-        Tracks tracks = (Tracks) o;
-        return duration == tracks.duration &&
-                Objects.equals(trackName, tracks.trackName);
+            Tracks tracks = (Tracks) o;
+            return duration == tracks.duration &&
+                    Objects.equals(trackName, tracks.trackName);
         }
     }
 

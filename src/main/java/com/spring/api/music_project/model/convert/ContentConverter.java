@@ -2,6 +2,7 @@ package com.spring.api.music_project.model.convert;
 
 import com.spring.api.music_project.model.AlbumSummary;
 import com.spring.api.music_project.model.PosterImage;
+import com.spring.api.music_project.model.Tags;
 import com.spring.api.music_project.model.Tracks;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
         List<AlbumSummary> summaryList = new ArrayList<>();
         List<PosterImage> imageList = new ArrayList<>();
         List<Tracks> tracksList = new ArrayList<>();
+        List<Tags> tagsList = new ArrayList<>();
         try {
             JSONObject rootObject = new JSONObject(responseAnswer);
             JSONObject jsonAlbum = null;
@@ -66,6 +68,16 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
                 }
                 newAlbum.setListOfPosters(imageList);
                 newAlbum.setCollectionOfTracks(tracksList);
+                JSONObject jsonTag = jsonAlbum.getJSONObject("tags");
+                JSONArray jsonArrayTag = jsonTag.getJSONArray("tag");
+                for (int l = 0; l < jsonArrayTag.length(); l++) {
+                    JSONObject newJsonTag = jsonArrayTag.getJSONObject(l);
+                    Tags newTag = new Tags();
+                    String name = newJsonTag.getString("name");
+                    newTag.setName(name);
+                    tagsList.add(newTag);
+                }
+                newAlbum.setTags(tagsList);
                 summaryList.add(newAlbum);
         } catch (JSONException e) {
             LOGGER.error("Something went wrong, "

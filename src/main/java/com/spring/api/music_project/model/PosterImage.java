@@ -35,16 +35,14 @@ public class PosterImage {
     public String toString() {
         return "PosterImage{"
                 + "text='" + storageUrl + '\''
-                + ", size='" + sizeFormat + '\''
-                + '}';
+                + ", size='" + sizeFormat + '\'' + '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        }
-        else if (o == null || getClass() != o.getClass()) {
+        } else if ((o == null) || (getClass() != o.getClass())) {
             return false;
         } else {
             PosterImage objectPoster = (PosterImage) o;

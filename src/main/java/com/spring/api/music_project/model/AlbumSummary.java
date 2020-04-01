@@ -9,15 +9,19 @@ public class AlbumSummary {
     private String artistName;
     private List<PosterImage> listOfPosters;
     private List<Tracks> collectionOfTracks;
+    private List<Tags> tags;
 
     public AlbumSummary() {
     }
 
-    public AlbumSummary(String albumTitle, String artistName, List<PosterImage> listOfPosters, List<Tracks> collectionOfTracks) {
+    public AlbumSummary(String albumTitle, String artistName,
+                        List<PosterImage> listOfPosters, List<Tracks> collectionOfTracks,
+                        List<Tags> tags) {
         this.albumTitle = albumTitle;
         this.artistName = artistName;
         this.listOfPosters = listOfPosters;
         this.collectionOfTracks = collectionOfTracks;
+        this.tags = tags;
     }
 
     public String getAlbumTitle() {
@@ -52,35 +56,44 @@ public class AlbumSummary {
         this.collectionOfTracks = collectionOfTracks;
     }
 
+    public List<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tags> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
         return "AlbumSummary{" +
-                "albumTitle='" + albumTitle + '\'' +
-                ", artistName='" + artistName + '\'' +
-                ", listOfPosters=" + listOfPosters +
-                ", collectionOfTracks=" + collectionOfTracks +
-                '}';
+                "albumTitle='" + albumTitle + '\''
+                + ", artistName='" + artistName + '\''
+                + ", listOfPosters=" + listOfPosters
+                + ", collectionOfTracks=" + collectionOfTracks
+                + ", tags=" + tags + '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        } else if (o == null || getClass() != o.getClass()) {
+        } else if ((o == null) || (getClass() != o.getClass())) {
             return false;
         } else {
             AlbumSummary objectAlbum = (AlbumSummary) o;
             return Objects.equals(albumTitle, objectAlbum.albumTitle)
                     && Objects.equals(artistName, objectAlbum.artistName)
                     && Objects.equals(listOfPosters, objectAlbum.listOfPosters)
-                    && Objects.equals(collectionOfTracks, objectAlbum.collectionOfTracks);
+                    && Objects.equals(collectionOfTracks, objectAlbum.collectionOfTracks)
+                    && Objects.equals(tags, objectAlbum.tags);
         }
     }
 
     @Override
     public int hashCode() {
         int primaryNumber = 74;
-        int result = primaryNumber * Objects.hash(albumTitle, artistName, listOfPosters, collectionOfTracks);
+        int result = primaryNumber * Objects.hash(albumTitle, artistName, listOfPosters, collectionOfTracks, tags);
         return result;
     }
 }
