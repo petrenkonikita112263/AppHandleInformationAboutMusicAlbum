@@ -3,7 +3,6 @@ package com.spring.api.music_project.model.service;
 import com.spring.api.music_project.model.AlbumSummary;
 import com.spring.api.music_project.model.convert.ContentConverter;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -36,9 +35,9 @@ public class MusicService implements IMusicService {
     }
 
     @Override
-    public List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum, String typeFormat) {
+    public List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum) {
        String urlLink = uriComponentsBuilder.cloneBuilder().queryParam("artist",
-               nameOfArtist).queryParam("album", titleOfAlbum).queryParam("format", typeFormat).build().toString();
+               nameOfArtist).queryParam("album", titleOfAlbum).build().toString();
        return conversionService.convert(urlLink, List.class);
     }
 
