@@ -5,12 +5,14 @@ import com.spring.api.music_project.model.service.ConverterService;
 import com.spring.api.music_project.model.service.IMusicService;
 import com.spring.api.music_project.model.service.Savable;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @RestController
@@ -46,16 +48,16 @@ public class ApiController {
 //        return ResponseEntity.ok().body(document);
 //    }
 
-//    @GetMapping("/album/{signerName}/{albumTitle}/word")
-//    public ResponseEntity<byte[]> downloadWordDocument(@PathVariable(name = "signerName") String signerName,
-//                                                       @PathVariable(name = "albumTitle") String albumTitle) {
-//        ByteArrayOutputStream baos;
-//        byte[] document = albumStorage.saveAlbum(signerName, albumTitle).toByteArray();;
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION,
-//                        "attachment; filename = Collections_Of_Albums.docx")
-//                .contentLength(document.length)
-//                .body(document);
-//    }
+    @GetMapping("/album/{signerName}/{albumTitle}/word")
+    public ResponseEntity<byte[]> downloadWordDocument(@PathVariable(name = "signerName") String signerName,
+                                                       @PathVariable(name = "albumTitle") String albumTitle) {
+        ByteArrayOutputStream baos;
+        byte[] document = albumStorage.saveAlbum(signerName, albumTitle).toByteArray();;
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename = Collections_Of_Albums.docx")
+                .contentLength(document.length)
+                .body(document);
+    }
 
 }
