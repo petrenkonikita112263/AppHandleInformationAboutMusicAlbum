@@ -6,6 +6,8 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -19,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Service
+@CacheConfig(cacheNames = {"baos"})
 public class AlbumStorage implements Savable {
 
     private static final Logger LOGGER = Logger.getLogger(AlbumStorage.class);
@@ -32,6 +35,7 @@ public class AlbumStorage implements Savable {
     }
 
     @Override
+    @Cacheable
     public ByteArrayOutputStream createTemplateDocument(List<AlbumSummary> summaryList) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         File file = new File(storagePoint);
