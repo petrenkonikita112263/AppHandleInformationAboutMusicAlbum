@@ -72,7 +72,6 @@ public class AlbumStorage implements Savable {
                 if (content.getListOfPosters().isEmpty()) {
                     imageRun.setText("The found album doesn't have any posters");
                 } else {
-//                    try {
                     for (int i = 2; i < content.getListOfPosters().size(); i += 10) {
                         try {
                             imageRun.addPicture(getImage(content.getListOfPosters().get(i).getStorageUrl()),
@@ -84,14 +83,6 @@ public class AlbumStorage implements Savable {
                             LOGGER.error("Invalid format ", e);
                         }
                     }
-//                    } catch (InvalidFormatException e) {
-//                        LOGGER.error("Invalid format ", e);
-//                    }
-//                    } catch (MalformedURLException e) {
-//                        LOGGER.error("Can't create a url link ", e);
-//                    } catch (IOException e) {
-//                        LOGGER.error("Writing process's failed ", e);
-//                    }
                 }
                 imageRun.addBreak();
                 imageRun.setTextPosition(20);
@@ -150,7 +141,6 @@ public class AlbumStorage implements Savable {
                 LOGGER.error("Some went wrong in process writing into file ", e);
             } finally {
                 try {
-//                    fis.close();
                     baos.flush();
                     baos.close();
                 } catch (IOException e) {
@@ -159,7 +149,6 @@ public class AlbumStorage implements Savable {
             }
         } finally {
             try {
-//                fis.close();
                 document.close();
             } catch (IOException e) {
                 LOGGER.error("Can't close document stream ", e);
@@ -168,7 +157,7 @@ public class AlbumStorage implements Savable {
         return baos;
     }
 
-    private InputStream getImage(String url) throws IOException {
+    private InputStream getImage(String url) {
         InputStream is = null;
         try {
             URL imageUrl = new URL(url);
