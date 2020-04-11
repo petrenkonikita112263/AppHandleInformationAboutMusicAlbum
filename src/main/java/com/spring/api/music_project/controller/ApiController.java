@@ -33,6 +33,13 @@ public class ApiController {
         return new ResponseEntity<>(summaryList, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/async/{signerName}/{albumTitle}")
+    public ResponseEntity<List<AlbumSummary>> getAsynchAlbum(@PathVariable(name = "signerName") String signerName,
+                                                       @PathVariable(name = "albumTitle") String albumTitle) {
+        List<AlbumSummary> summaryList = musicService.obtaineAlbumThroughName(signerName, albumTitle);
+        return new ResponseEntity<>(summaryList, HttpStatus.OK);
+    }
+
     @GetMapping("/album/{signerName}/{albumTitle}/word")
     public ResponseEntity<byte[]> downloadWordDocument(@PathVariable(name = "signerName") String signerName,
                                                        @PathVariable(name = "albumTitle") String albumTitle) {

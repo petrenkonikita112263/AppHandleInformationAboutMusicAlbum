@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IMusicService {
 
-    List<AlbumSummary> printAllInfo();
-
     List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum);
+
+    List<AlbumSummary> obtaineAsyncAlbumThroughName(String nameOfArtist, String titleOfAlbum);
 
 }
