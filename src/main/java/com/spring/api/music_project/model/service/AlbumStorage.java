@@ -11,9 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -74,15 +72,16 @@ public class AlbumStorage implements Savable {
                             imageRun.setText("The found album doesn't have any posters");
                         } else {
                             for (int i = 2; i < content.getListOfPosters().size(); i += 10) {
-                                try {
-                                    imageRun.addPicture(getImage(content.getListOfPosters().get(i).getStorageUrl()),
-                                            XWPFDocument.PICTURE_TYPE_PNG, "",
-                                            Units.toEMU(200), Units.toEMU(200));
-                                    getImage(content.getListOfPosters().get(i).getStorageUrl()).close();
+                                String imgUrl = content.getListOfPosters().get(i).getStorageUrl();
+                                try(BufferedInputStream bis = new BufferedInputStream(new URL(imgUrl).openStream());) {
+                                    try {
+                                        imageRun.addPicture(bis, XWPFDocument.PICTURE_TYPE_PNG, "",
+                                                Units.toEMU(200), Units.toEMU(200));
+                                    } catch (InvalidFormatException e) {
+                                        LOGGER.error("Invalid type format", e);
+                                    }
                                 } catch (IOException e) {
-                                    LOGGER.error("Can't input the image ", e);
-                                } catch (InvalidFormatException e) {
-                                    LOGGER.error("Invalid format ", e);
+                                    LOGGER.error("Can't close BufferedInputStream with ");
                                 }
                             }
                         }
@@ -162,21 +161,6 @@ public class AlbumStorage implements Savable {
             LOGGER.error("Can't close FileInputStream using try-with-resources", e);
         }
         return baos;
-    }
-
-    private InputStream getImage(String url) {
-        InputStream is = null;
-        try {
-            URL imageUrl = new URL(url);
-            URLConnection urlConnection = imageUrl.openConnection();
-            is = imageUrl.openStream();
-            urlConnection.setRequestProperty("User-Agent", "Default");
-        } catch (MalformedURLException e) {
-            LOGGER.error("Can't create a url link ", e);
-        } catch (IOException e) {
-            LOGGER.error("Writing process's failed ", e);
-        }
-        return is;
     }
 
     private void createFileWithFolder() {
