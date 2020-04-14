@@ -7,11 +7,22 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Class that implements interface WebMvcConfigurer,
+ * and implemented one method and helps REST Controller
+ * return JSON or XML.
+ */
 @Configuration
 @EnableWebMvc
 @EnableCaching
 public class TypeConfiguration implements WebMvcConfigurer {
 
+    /**
+     * Implementing of method from interface, that set default content type
+     * as JSON with favorParameter and parameterName.
+     *
+     * @param configurer - object of ContentNegotiationConfigurer class
+     */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.favorPathExtension(true).

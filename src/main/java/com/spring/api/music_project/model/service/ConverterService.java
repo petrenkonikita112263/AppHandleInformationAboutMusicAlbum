@@ -6,9 +6,18 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class defined as service and creates custom converter.
+ */
 @Service
 public class ConverterService {
 
+    /**
+     * Non-arg constructor marks as simple component.
+     * Registry our custom converter with DefaultConversionService.
+     *
+     * @return - get object of service with added converter
+     */
     @Bean
     public ConversionService conversionService() {
         DefaultConversionService service = new DefaultConversionService();
