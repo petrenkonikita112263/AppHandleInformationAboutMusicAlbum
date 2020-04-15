@@ -13,6 +13,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.*;
 
+/**
+ * This class is Service, that holds implementation of business logic application.
+ * Perform operations on user's requests. Also has functionality of caching.
+ */
 @Service
 @CacheConfig(cacheNames = {"summaryList"})
 public class MusicService implements IMusicService {
@@ -35,6 +39,14 @@ public class MusicService implements IMusicService {
         this.threadItem = threadItem;
     }
 
+    /**
+     * Implements method that builds url based on user's request and sends it to converter.
+     * if the request repeats, it works with cache-copy.
+     *
+     * @param nameOfArtist - signer name or band bane
+     * @param titleOfAlbum - name of the album
+     * @return - after converting brings back list of album in json or xml response
+     */
     @Override
     @Cacheable
     public List<AlbumSummary> obtaineAlbumThroughName(String nameOfArtist, String titleOfAlbum) {
@@ -46,6 +58,14 @@ public class MusicService implements IMusicService {
         return conversionService.convert(urlLink, List.class);
     }
 
+    /**
+     * Implements method that builds url based on user's request and sends it to converter.
+     * if the request repeats, it works with cache-copy.
+     *
+     * @param nameOfArtist - signer name or band bane
+     * @param titleOfAlbum - name of the album
+     * @return - send build url to private method
+     */
     @Override
     public List<AlbumSummary> obtaineAsyncAlbumThroughName(String nameOfArtist, String titleOfAlbum)
             throws ExecutionException, InterruptedException {
@@ -57,6 +77,14 @@ public class MusicService implements IMusicService {
         return performAsynchronicity(urlLink);
     }
 
+    /**
+     * Additional method that sends url after asynchoronization to converter.
+     *
+     * @param urlLink - build url that based on user's request
+     * @return - after converting brings back list of album in json or xml response
+     * @throws ExecutionException   - got error during retrieve the result from ExecutorService
+     * @throws InterruptedException - got error when some of the threads were interrupted
+     */
     private List<AlbumSummary> performAsynchronicity(String urlLink) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(threadItem);
         CompletionService<List<AlbumSummary>> completionService
@@ -86,6 +114,12 @@ public class MusicService implements IMusicService {
         return listFuture.get();
     }
 
+    /**
+     * Additional method that stops Future and shutdown ExecutorService.
+     *
+     * @param listFuture      - instance of Future
+     * @param executorService - instance of ExecutorService
+     */
     private void closeResource(Future listFuture, ExecutorService executorService) {
         listFuture.cancel(true);
         executorService.shutdown();
