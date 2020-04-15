@@ -3,7 +3,6 @@ package com.spring.api.music_project.controller;
 import com.spring.api.music_project.model.AlbumSummary;
 import com.spring.api.music_project.model.service.IMusicService;
 import com.spring.api.music_project.model.service.Savable;
-import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 public class ApiController {
-
-    private static final Logger LOGGER = Logger.getLogger(ApiController.class);
 
     protected IMusicService musicService;
     protected Savable albumStorage;
@@ -33,10 +31,11 @@ public class ApiController {
         return new ResponseEntity<>(summaryList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/async/{signerName}/{albumTitle}")
+    @GetMapping(value = "/async/album/{signerName}/{albumTitle}")
     public ResponseEntity<List<AlbumSummary>> getAsynchAlbum(@PathVariable(name = "signerName") String signerName,
-                                                       @PathVariable(name = "albumTitle") String albumTitle) {
-        List<AlbumSummary> summaryList = musicService.obtaineAlbumThroughName(signerName, albumTitle);
+                                                       @PathVariable(name = "albumTitle") String albumTitle)
+            throws ExecutionException, InterruptedException {
+        List<AlbumSummary> summaryList = musicService.obtaineAsyncAlbumThroughName(signerName, albumTitle);
         return new ResponseEntity<>(summaryList, HttpStatus.OK);
     }
 
