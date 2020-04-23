@@ -95,14 +95,11 @@ public class MusicService implements IMusicService {
             closeResource(listFuture, executorService);
         }
         while (!listFuture.isDone()) {
-            System.out.println(
-                    String.format(
-                            "The future is %s",
-                            listFuture.isDone() ? "done" : "not done")
-                            + " at " + LocalDateTime.now());
+            LOGGER.info("The future isn't done at "
+                    + LocalDateTime.now());
             Thread.sleep(1000);
         }
-        System.out.println("The future has completed (done) at " + LocalDateTime.now());
+        LOGGER.info("The future has completed (done) at " + LocalDateTime.now());
         return listFuture.get();
     }
 
