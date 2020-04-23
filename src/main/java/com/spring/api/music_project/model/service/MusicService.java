@@ -94,14 +94,6 @@ public class MusicService implements IMusicService {
         if (listFuture.isCancelled()) {
             closeResource(listFuture, executorService);
         }
-//        try {
-//            return listFuture.get();
-//            closeResource(listFuture, executorService);
-//        } catch (InterruptedException e) {
-//            LOGGER.error("One of the thread was interrupted while waiting", e);
-//        } catch (ExecutionException e) {
-//            LOGGER.error("Failure in executor service, can't retrieve the result", e);
-//        }
         while (!listFuture.isDone()) {
             System.out.println(
                     String.format(
