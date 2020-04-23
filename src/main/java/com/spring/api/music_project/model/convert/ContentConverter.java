@@ -46,6 +46,13 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
         try {
             JSONObject rootObject = new JSONObject(responseAnswer);
             JSONObject jsonAlbum = null;
+            if (rootObject.isNull("album")) {
+                try {
+                    return summaryList;
+                } catch (NullPointerException e) {
+                    LOGGER.error("Nothing exists with that name", e);
+                }
+            }
             if (rootObject.has("album")) {
                 jsonAlbum = rootObject.getJSONObject("album");
             }
