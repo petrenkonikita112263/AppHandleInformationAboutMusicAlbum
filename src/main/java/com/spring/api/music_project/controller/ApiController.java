@@ -3,6 +3,8 @@ package com.spring.api.music_project.controller;
 import com.spring.api.music_project.model.AlbumSummary;
 import com.spring.api.music_project.model.service.IMusicService;
 import com.spring.api.music_project.model.service.Savable;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,14 +69,15 @@ public class ApiController {
      * @return - return generated word document with the content in byte
      */
     @GetMapping("download/album/{signerName}/{albumTitle}")
-    public ResponseEntity<byte[]> downloadWordDocument(@PathVariable(name = "signerName") String signerName,
-                                                       @PathVariable(name = "albumTitle") String albumTitle) {
+    public ResponseEntity<Resource> downloadWordDocument(@PathVariable(name = "signerName") String signerName,
+                                                         @PathVariable(name = "albumTitle") String albumTitle) {
         byte[] document = albumStorage.saveAlbum(signerName, albumTitle);
+        ByteArrayResource resource = new ByteArrayResource(document);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename = Collections_Of_Albums.docx")
                 .contentLength(document.length)
-                .body(document);
+                .body(resource);
     }
 
 }
