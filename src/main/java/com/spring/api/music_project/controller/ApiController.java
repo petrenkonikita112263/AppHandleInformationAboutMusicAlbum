@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This calss is REST controller, where written implementation of
+ * This class is REST controller, where written implementation of
  * logic processing client's requests.
  */
 @RestController
@@ -69,8 +69,7 @@ public class ApiController {
     @GetMapping("download/album/{signerName}/{albumTitle}")
     public ResponseEntity<byte[]> downloadWordDocument(@PathVariable(name = "signerName") String signerName,
                                                        @PathVariable(name = "albumTitle") String albumTitle) {
-        byte[] document = albumStorage.saveAlbum(signerName, albumTitle).toByteArray();
-        ;
+        byte[] document = albumStorage.saveAlbum(signerName, albumTitle);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename = Collections_Of_Albums.docx")

@@ -56,7 +56,7 @@ public class AlbumStorage implements Savable {
      */
     @Override
     @Cacheable
-    public ByteArrayOutputStream createTemplateDocument(List<AlbumSummary> summaryList) {
+    public byte[] createTemplateDocument(List<AlbumSummary> summaryList) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         File file = new File(storagePoint);
         if (!file.exists()) {
@@ -182,7 +182,7 @@ public class AlbumStorage implements Savable {
         } catch (IOException e) {
             LOGGER.error("Can't close FileInputStream using try-with-resources", e);
         }
-        return baos;
+        return baos.toByteArray();
     }
 
     /**
@@ -217,7 +217,7 @@ public class AlbumStorage implements Savable {
      * @return - sent buffer data to the stream
      */
     @Override
-    public ByteArrayOutputStream saveAlbum(String nameOfArtist, String titleOfAlbum) {
+    public byte[] saveAlbum(String nameOfArtist, String titleOfAlbum) {
         return createTemplateDocument(musicService.obtaineAlbumThroughName(nameOfArtist, titleOfAlbum));
     }
 }

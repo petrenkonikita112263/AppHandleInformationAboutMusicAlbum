@@ -17,7 +17,7 @@ public interface Savable {
      *                    writes it to the docx document
      * @return - stream of data that was sent to the buffer
      */
-    ByteArrayOutputStream createTemplateDocument(List<AlbumSummary> summaryList);
+    byte[] createTemplateDocument(List<AlbumSummary> summaryList);
 
     /**
      * Method that save album into stream.
@@ -26,6 +26,6 @@ public interface Savable {
      * @param titleOfAlbum - string value with the name of the album
      * @return - sent buffer data to the stream
      */
-    ByteArrayOutputStream saveAlbum(String nameOfArtist, String titleOfAlbum);
+    byte[] saveAlbum(String nameOfArtist, String titleOfAlbum);
 
 }
