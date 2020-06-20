@@ -19,7 +19,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Class marked as service, that gets the list of the albums, and writes
+ * Class marked as service, that declare that this class represents a service -
+ * a component of a service layer.
+ * Main functionality are getting the list of the albums, and writing
  * the information into docx document using Apache POI.
  * Caching the ByteArrayOutputStream.
  */
@@ -32,7 +34,14 @@ public class AlbumStorage implements Savable {
      */
     private static final Logger LOGGER = Logger.getLogger(AlbumStorage.class);
 
-    private IMusicService musicService;
+    /**
+     * Private field with instance of interface.
+     */
+    private Musicable musicService;
+
+    /**
+     * Private field string value path to template file.
+     */
     private String storagePoint;
 
     /**
@@ -41,14 +50,14 @@ public class AlbumStorage implements Savable {
      * @param storagePoint - holds the path from properties file to the string
      * @param musicService - object of interface class
      */
-    public AlbumStorage(@Value("${documentPath}") String storagePoint, IMusicService musicService) {
+    public AlbumStorage(@Value("${documentPath}") String storagePoint, Musicable musicService) {
         this.storagePoint = storagePoint;
         this.musicService = musicService;
     }
 
     /**
      * Implementing method from interface class. Also this method marked as
-     * cacheable - the return value is now caching.
+     * cacheable - enable the use of second level cache.
      *
      * @param summaryList - reads information about list of album and
      *                    writes it to the docx document
@@ -210,7 +219,7 @@ public class AlbumStorage implements Savable {
     }
 
     /**
-     * Implemeting another method from interface Savable.
+     * Implementing another method from interface Savable.
      *
      * @param nameOfArtist - string value with the name of the band|signer
      * @param titleOfAlbum - string value with the name of the album

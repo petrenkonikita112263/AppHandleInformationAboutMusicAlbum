@@ -2,7 +2,6 @@ package com.spring.api.music_project.model.service;
 
 import com.spring.api.music_project.model.AlbumSummary;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
