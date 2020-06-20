@@ -14,21 +14,42 @@ import java.util.List;
 import java.util.concurrent.*;
 
 /**
- * This class is Service, that holds implementation of business logic application.
- * Perform operations on user's requests. Also has functionality of caching.
+ * Class marked as service, that declare that this class represents a service -
+ * a component of a service layer.
+ * Also perform operations on user's requests. Caching is enabled.
  */
 @Service
 @CacheConfig(cacheNames = {"summaryList"})
-public class MusicService implements IMusicService {
+public class MusicService implements Musicable {
 
+    /**
+     * Constant for this class that add logging functionality.
+     */
     private static final Logger LOGGER = Logger.getLogger(MusicService.class);
 
+    /**
+     * Private final field with instance that helps build URL in Spring.
+     */
     private final UriComponentsBuilder uriComponentsBuilder;
 
+    /**
+     * Private field with instance of ConversionService that allows us
+     * hook up our customer converter.
+     */
     private ConversionService conversionService;
 
+    /**
+     * Private integer field of quantity of threads.
+     */
     private int threadItem;
 
+    /**
+     * Constructor with arguments.
+     *
+     * @param key               - holds apiKey from properties file
+     * @param conversionService - instance of ConversionService
+     * @param threadItem        - holds quantity of threads from properties file
+     */
     public MusicService(@Value("${api_key}") String key,
                         ConversionService conversionService,
                         @Value("${quantityOfThreads}") int threadItem) {

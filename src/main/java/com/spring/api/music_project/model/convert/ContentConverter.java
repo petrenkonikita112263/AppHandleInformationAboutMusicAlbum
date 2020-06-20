@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is the component of Spring,
- * implements interface Converter<S, T> and method convert,
- * that allow us to create our custom converter.
+ * This class marks as component - helps bean-searching.
+ * Implements interface Converter<S, T> allow us to specify this class
+ * for converting the Entity Base Attribute to another List<AlbumSummary> type.
  */
 @Component
 public class ContentConverter implements Converter<String, List<AlbumSummary>> {

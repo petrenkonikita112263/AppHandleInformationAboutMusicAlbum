@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Interface with business logic work of application.
  */
-public interface IMusicService {
+public interface Musicable {
 
     /**
      * Method that builds url based on user's request and sends it to converter.

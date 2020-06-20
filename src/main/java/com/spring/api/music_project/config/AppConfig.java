@@ -1,7 +1,9 @@
 package com.spring.api.music_project.config;
 
+import com.spring.api.music_project.model.convert.ContentConverter;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 @EnableCaching
-public class TypeConfiguration implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer {
 
     /**
      * Implementing of method from interface, that set default content type
@@ -33,6 +35,14 @@ public class TypeConfiguration implements WebMvcConfigurer {
                 defaultContentType(MediaType.APPLICATION_JSON).
                 mediaType("xml", MediaType.APPLICATION_XML).
                 mediaType("json", MediaType.APPLICATION_JSON);
+    }
+
+    /**
+     * Method that tells Spring about custom converter.
+     * @param registry - object which wrapped the converter*/
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new ContentConverter());
     }
 
 }

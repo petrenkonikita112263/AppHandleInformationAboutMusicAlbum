@@ -1,7 +1,7 @@
 package com.spring.api.music_project.controller;
 
 import com.spring.api.music_project.model.AlbumSummary;
-import com.spring.api.music_project.model.service.IMusicService;
+import com.spring.api.music_project.model.service.Musicable;
 import com.spring.api.music_project.model.service.Savable;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -17,24 +17,39 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * This class is REST controller, where written implementation of
- * logic processing client's requests.
+ * logic processing client's requests uses automatic data conversion
+ * from JAVA format to JSON (by default).
  */
 @RestController
 public class ApiController {
 
-    protected IMusicService musicService;
-    protected Savable albumStorage;
+    /**
+     * Private field with instance of the interface.
+     */
+    private Musicable musicService;
+    /**
+     * Private field with instance of the interface.
+     */
+    private Savable albumStorage;
 
-    public ApiController(IMusicService musicService, Savable albumStorage) {
+    /**
+     * Constructor with arguments.
+     *
+     * @param musicService - instance of MusicService class
+     * @param albumStorage - instance of AlbumStorage class
+     */
+    public ApiController(Musicable musicService, Savable albumStorage) {
         this.musicService = musicService;
         this.albumStorage = albumStorage;
     }
 
     /**
-     * Method that handles information through GET request on specific address.
+     * Method that handles with GetMapping of the type RequestMapping that
+     * listens or catches HTTP client requests and binds the address to the handler method,
+     * value - describes the URL that will be processed in this controller or controller method.
      *
-     * @param signerName - send signer name or band bane
-     * @param albumTitle - send name of the album
+     * @param signerName - as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
+     * @param albumTitle - as pathVariable allows us to enter a name of the album from the URL as a parameter
      * @return - return the response (answer) in list
      */
     @GetMapping(value = "/album/{signerName}/{albumTitle}")
@@ -45,10 +60,12 @@ public class ApiController {
     }
 
     /**
-     * Asynchronic method that handles information through GET request on specific address.
+     * Asynchronous method that handles with GetMapping of the type RequestMapping that
+     * listens or catches HTTP client requests and binds the address to the handler method,
+     * value - describes the URL that will be processed in this controller or controller method.
      *
-     * @param signerName - send signer name or band bane
-     * @param albumTitle - send name of the album
+     * @param signerName - as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
+     * @param albumTitle - as pathVariable allows us to enter a name of the album from the URL as a parameter
      * @return - return the response (answer) in list
      * @throws ExecutionException   - got error during retrieve the result from ExecutorService
      * @throws InterruptedException - got error when some of the threads were interrupted
@@ -62,10 +79,12 @@ public class ApiController {
     }
 
     /**
-     * Method that handles information through GET request on specific address.
+     * Method that handles with GetMapping of the type RequestMapping that
+     * listens or catches HTTP client requests and binds the address to the handler method,
+     * value - describes the URL that will be processed in this controller or controller method.
      *
-     * @param signerName - send signer name or band bane
-     * @param albumTitle - send name of the album
+     * @param signerName - as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
+     * @param albumTitle - as pathVariable allows us to enter a name of the album from the URL as a parameter
      * @return - return generated word document with the content in byte
      */
     @GetMapping("download/album/{signerName}/{albumTitle}")
