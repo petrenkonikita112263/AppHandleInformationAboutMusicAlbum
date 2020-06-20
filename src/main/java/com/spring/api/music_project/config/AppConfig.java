@@ -8,9 +8,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Class that implements interface WebMvcConfigurer,
- * and implemented one method and helps REST Controller
- * return JSON or XML.
+ * This class is one of the Configuration's classes, enable MVC and enable caching.
+ * Also implements interface WebMvcConfigurer and implemented one method
+ * that helps REST Controller return JSON or XML.
  */
 @Configuration
 @EnableWebMvc
