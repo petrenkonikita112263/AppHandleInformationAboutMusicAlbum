@@ -1,31 +1,17 @@
 package com.spring.api.music_project.model;
 
+import lombok.*;
+
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString(includeFieldNames = true)
 public class Tags {
 
     private String name;
-
-    public Tags() {
-    }
-
-    public Tags(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Tags{" + "name='"
-                + name + '\'' + '}';
-    }
 
     @Override
     public boolean equals(Object o) {

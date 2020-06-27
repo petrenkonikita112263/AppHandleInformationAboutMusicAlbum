@@ -1,7 +1,8 @@
 package com.spring.api.music_project.model.service;
 
 import com.spring.api.music_project.model.AlbumSummary;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,7 +26,7 @@ public class MusicService implements Musicable {
     /**
      * Constant for this class that add logging functionality.
      */
-    private static final Logger LOGGER = Logger.getLogger(MusicService.class);
+    private static final Logger LOGGER = LogManager.getLogger(MusicService.class);
 
     /**
      * Private final field with instance that helps build URL in Spring.

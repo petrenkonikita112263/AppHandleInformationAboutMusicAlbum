@@ -1,7 +1,8 @@
 package com.spring.api.music_project.model.service;
 
 import com.spring.api.music_project.model.AlbumSummary;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
@@ -32,7 +33,7 @@ public class AlbumStorage implements Savable {
     /**
      * Constant for this class that add logging functionality.
      */
-    private static final Logger LOGGER = Logger.getLogger(AlbumStorage.class);
+    private static final Logger LOGGER = LogManager.getLogger(AlbumStorage.class);
 
     /**
      * Private field with instance of interface.

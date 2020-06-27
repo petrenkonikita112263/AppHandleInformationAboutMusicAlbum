@@ -1,42 +1,18 @@
 package com.spring.api.music_project.model;
 
+import lombok.*;
+
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@ToString(includeFieldNames = true)
 public class PosterImage {
 
     private String storageUrl;
     private String sizeFormat;
-
-    public PosterImage() {
-    }
-
-    public PosterImage(String storageUrl, String sizeFormat) {
-        this.storageUrl = storageUrl;
-        this.sizeFormat = sizeFormat;
-    }
-
-    public String getStorageUrl() {
-        return storageUrl;
-    }
-
-    public void setStorageUrl(String storageUrl) {
-        this.storageUrl = storageUrl;
-    }
-
-    public String getSizeFormat() {
-        return sizeFormat;
-    }
-
-    public void setSizeFormat(String sizeFormat) {
-        this.sizeFormat = sizeFormat;
-    }
-
-    @Override
-    public String toString() {
-        return "PosterImage{"
-                + "text='" + storageUrl + '\''
-                + ", size='" + sizeFormat + '\'' + '}';
-    }
 
     @Override
     public boolean equals(Object o) {

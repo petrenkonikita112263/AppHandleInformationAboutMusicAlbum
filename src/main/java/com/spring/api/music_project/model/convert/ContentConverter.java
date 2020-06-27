@@ -4,7 +4,8 @@ import com.spring.api.music_project.model.AlbumSummary;
 import com.spring.api.music_project.model.PosterImage;
 import com.spring.api.music_project.model.Tags;
 import com.spring.api.music_project.model.Tracks;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
     /**
      * Constant for this class that add logging functionality.
      */
-    private static final Logger LOGGER = Logger.getLogger(ContentConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(ContentConverter.class);
 
     /**
      * Implementing method convert, that allow us to parse json document.
