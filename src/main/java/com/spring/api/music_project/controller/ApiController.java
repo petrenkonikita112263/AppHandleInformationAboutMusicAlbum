@@ -35,8 +35,8 @@ public class ApiController {
     /**
      * Constructor with arguments.
      *
-     * @param musicService - instance of MusicService class
-     * @param albumStorage - instance of AlbumStorage class
+     * @param musicService instance of MusicService class
+     * @param albumStorage instance of AlbumStorage class
      */
     public ApiController(Musicable musicService, Savable albumStorage) {
         this.musicService = musicService;
@@ -48,9 +48,9 @@ public class ApiController {
      * listens or catches HTTP client requests and binds the address to the handler method,
      * value - describes the URL that will be processed in this controller or controller method.
      *
-     * @param signerName - as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
-     * @param albumTitle - as pathVariable allows us to enter a name of the album from the URL as a parameter
-     * @return - return the response (answer) in list
+     * @param signerName as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
+     * @param albumTitle as pathVariable allows us to enter a name of the album from the URL as a parameter
+     * @return return the response (answer) in list
      */
     @GetMapping(value = "/album/{signerName}/{albumTitle}")
     public ResponseEntity<List<AlbumSummary>> getAlbum(@PathVariable(name = "signerName") String signerName,
@@ -64,11 +64,11 @@ public class ApiController {
      * listens or catches HTTP client requests and binds the address to the handler method,
      * value - describes the URL that will be processed in this controller or controller method.
      *
-     * @param signerName - as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
-     * @param albumTitle - as pathVariable allows us to enter a name of the album from the URL as a parameter
-     * @return - return the response (answer) in list
-     * @throws ExecutionException   - got error during retrieve the result from ExecutorService
-     * @throws InterruptedException - got error when some of the threads were interrupted
+     * @param signerName as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
+     * @param albumTitle as pathVariable allows us to enter a name of the album from the URL as a parameter
+     * @return return the response (answer) in list
+     * @throws ExecutionException   got error during retrieve the result from ExecutorService
+     * @throws InterruptedException got error when some of the threads were interrupted
      */
     @GetMapping(value = "/async/album/{signerName}/{albumTitle}")
     public ResponseEntity<List<AlbumSummary>> getAsynchAlbum(@PathVariable(name = "signerName") String signerName,
@@ -83,9 +83,9 @@ public class ApiController {
      * listens or catches HTTP client requests and binds the address to the handler method,
      * value - describes the URL that will be processed in this controller or controller method.
      *
-     * @param signerName - as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
-     * @param albumTitle - as pathVariable allows us to enter a name of the album from the URL as a parameter
-     * @return - return generated word document with the content in byte
+     * @param signerName as pathVariable allows us to enter a signer name or band bane from the URL as a parameter
+     * @param albumTitle as pathVariable allows us to enter a name of the album from the URL as a parameter
+     * @return return generated word document with the content in byte
      */
     @GetMapping("download/album/{signerName}/{albumTitle}")
     public ResponseEntity<Resource> downloadWordDocument(@PathVariable(name = "signerName") String signerName,

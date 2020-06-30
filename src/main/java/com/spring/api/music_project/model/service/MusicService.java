@@ -47,9 +47,9 @@ public class MusicService implements Musicable {
     /**
      * Constructor with arguments.
      *
-     * @param key               - holds apiKey from properties file
-     * @param conversionService - instance of ConversionService
-     * @param threadItem        - holds quantity of threads from properties file
+     * @param key               holds apiKey from properties file
+     * @param conversionService instance of ConversionService
+     * @param threadItem        holds quantity of threads from properties file
      */
     public MusicService(@Value("${api_key}") String key,
                         ConversionService conversionService,
@@ -62,12 +62,7 @@ public class MusicService implements Musicable {
     }
 
     /**
-     * Implements method that builds url based on user's request and sends it to converter.
-     * if the request repeats, it works with cache-copy.
-     *
-     * @param nameOfArtist - signer name or band bane
-     * @param titleOfAlbum - name of the album
-     * @return - after converting brings back list of album in json or xml response
+     * {@inheritDoc}
      */
     @Override
     @Cacheable
@@ -81,12 +76,7 @@ public class MusicService implements Musicable {
     }
 
     /**
-     * Implements method that builds url based on user's request and sends it to converter.
-     * if the request repeats, it works with cache-copy.
-     *
-     * @param nameOfArtist - signer name or band bane
-     * @param titleOfAlbum - name of the album
-     * @return - send build url to private method
+     * {@inheritDoc}
      */
     @Override
     public List<AlbumSummary> obtaineAsyncAlbumThroughName(String nameOfArtist, String titleOfAlbum)

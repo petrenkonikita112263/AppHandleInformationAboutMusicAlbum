@@ -23,7 +23,7 @@ public class AppConfig implements WebMvcConfigurer {
      * Implementing of method from interface, that set default content type
      * as JSON with favorParameter and parameterName.
      *
-     * @param configurer - object of ContentNegotiationConfigurer class
+     * @param configurer object of ContentNegotiationConfigurer class
      */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
@@ -39,7 +39,9 @@ public class AppConfig implements WebMvcConfigurer {
 
     /**
      * Method that tells Spring about custom converter.
-     * @param registry - object which wrapped the converter*/
+     *
+     * @param registry object which wrapped the converter
+     */
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new ContentConverter());

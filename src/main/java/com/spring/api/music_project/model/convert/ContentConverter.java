@@ -32,8 +32,8 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
     /**
      * Implementing method convert, that allow us to parse json document.
      *
-     * @param urlAddress - link that stores json response answer about album
-     * @return - since were parsing album information in json, we're returning
+     * @param urlAddress link that stores json response answer about album
+     * @return since were parsing album information in json, we're returning
      * the list of this album
      */
     @Override

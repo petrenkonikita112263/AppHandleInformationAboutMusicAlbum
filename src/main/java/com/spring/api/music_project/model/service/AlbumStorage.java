@@ -48,8 +48,8 @@ public class AlbumStorage implements Savable {
     /**
      * Constructor with arguments.
      *
-     * @param storagePoint - holds the path from properties file to the string
-     * @param musicService - object of interface class
+     * @param storagePoint holds the path from properties file to the string
+     * @param musicService object of interface class
      */
     public AlbumStorage(@Value("${documentPath}") String storagePoint, Musicable musicService) {
         this.storagePoint = storagePoint;
@@ -57,12 +57,7 @@ public class AlbumStorage implements Savable {
     }
 
     /**
-     * Implementing method from interface class. Also this method marked as
-     * cacheable - enable the use of second level cache.
-     *
-     * @param summaryList - reads information about list of album and
-     *                    writes it to the docx document
-     * @return - stream of data that was sent to the buffer
+     * {@inheritDoc}
      */
     @Override
     @Cacheable
@@ -220,11 +215,7 @@ public class AlbumStorage implements Savable {
     }
 
     /**
-     * Implementing another method from interface Savable.
-     *
-     * @param nameOfArtist - string value with the name of the band|signer
-     * @param titleOfAlbum - string value with the name of the album
-     * @return - sent buffer data to the stream
+     * {@inheritDoc}
      */
     @Override
     public byte[] saveAlbum(String nameOfArtist, String titleOfAlbum) {
