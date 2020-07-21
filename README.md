@@ -16,3 +16,6 @@ P.S. Don't forget the user can anytime changed the title of the album or even si
 
 Finally, if user wants to download (save) his|her favorite album, he or she shall use this request in any *web-browser*:
 http://localhost:9910/download/album/Robbie%20Williams/The%20Heavy%20Entertainment%20Show
+
+# Important
+The user should have installed *Lombok* plugin for app's work.
