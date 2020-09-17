@@ -8,7 +8,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString(includeFieldNames = true)
+@ToString
 public class PosterImage {
 
     private String storageUrl;
@@ -30,7 +30,6 @@ public class PosterImage {
     @Override
     public int hashCode() {
         int primaryNumber = 214;
-        int result = primaryNumber * Objects.hash(storageUrl, sizeFormat);
-        return result;
+        return primaryNumber * Objects.hash(storageUrl, sizeFormat);
     }
 }

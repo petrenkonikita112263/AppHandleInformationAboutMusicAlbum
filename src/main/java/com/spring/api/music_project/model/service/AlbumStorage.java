@@ -1,8 +1,7 @@
 package com.spring.api.music_project.model.service;
 
 import com.spring.api.music_project.model.AlbumSummary;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
@@ -27,23 +26,19 @@ import java.util.List;
  * Caching the ByteArrayOutputStream.
  */
 @Service
+@Log4j2
 @CacheConfig(cacheNames = {"baos"})
 public class AlbumStorage implements Savable {
 
     /**
-     * Constant for this class that add logging functionality.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(AlbumStorage.class);
-
-    /**
      * Private field with instance of interface.
      */
-    private Musicable musicService;
+    private final Musicable musicService;
 
     /**
      * Private field string value path to template file.
      */
-    private String storagePoint;
+    private final String storagePoint;
 
     /**
      * Constructor with arguments.
@@ -100,15 +95,15 @@ public class AlbumStorage implements Savable {
                     } else {
                         for (int i = 2; i < content.getListOfPosters().size(); i += 10) {
                             String imgUrl = content.getListOfPosters().get(i).getStorageUrl();
-                            try (BufferedInputStream bis = new BufferedInputStream(new URL(imgUrl).openStream());) {
+                            try (BufferedInputStream bis = new BufferedInputStream(new URL(imgUrl).openStream())) {
                                 try {
                                     imageRun.addPicture(bis, XWPFDocument.PICTURE_TYPE_PNG, "",
                                             Units.toEMU(200), Units.toEMU(200));
                                 } catch (InvalidFormatException e) {
-                                    LOGGER.error("Invalid type format", e);
+                                    log.error("Invalid type format", e);
                                 }
                             } catch (IOException e) {
-                                LOGGER.error("Can't close BufferedInputStream with ");
+                                log.error("Can't close BufferedInputStream with ");
                             }
                         }
                     }
@@ -156,36 +151,32 @@ public class AlbumStorage implements Savable {
                             XWPFTableRow contentRow = table.createRow();
                             XWPFTableCell column_1 = contentRow.getCell(0);
                             column_1.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-                            if (column_1 != null) {
-                                column_1.setText(content.getCollectionOfTracks().get(i).getTrackName());
-                            }
+                            column_1.setText(content.getCollectionOfTracks().get(i).getTrackName());
                             XWPFTableCell column_2 = contentRow.getCell(1);
                             column_2.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-                            if (column_2 != null) {
-                                column_2.setText(content.getCollectionOfTracks().get(i).getDuration());
-                            }
+                            column_2.setText(content.getCollectionOfTracks().get(i).getDuration());
                         }
                     }
                 }
                 try {
                     document.write(baos);
                 } catch (IOException e) {
-                    LOGGER.error("Some went wrong in process writing into file ", e);
+                    log.error("Some went wrong in process writing into file ", e);
                 } finally {
                     try {
                         baos.flush();
                         baos.close();
                     } catch (IOException e) {
-                        LOGGER.error("Can't close output stream ", e);
+                        log.error("Can't close output stream ", e);
                     }
                 }
             } catch (IOException e) {
-                LOGGER.error("Can't close XWPFDocument using try-with-resources", e);
+                log.error("Can't close XWPFDocument using try-with-resources", e);
             }
         } catch (FileNotFoundException e) {
-            LOGGER.error("Can't get acess to the file, invalid path or etc.", e);
+            log.error("Can't get acess to the file, invalid path or etc.", e);
         } catch (IOException e) {
-            LOGGER.error("Can't close FileInputStream using try-with-resources", e);
+            log.error("Can't close FileInputStream using try-with-resources", e);
         }
         return baos.toByteArray();
     }
@@ -198,7 +189,7 @@ public class AlbumStorage implements Savable {
         try {
             Files.createDirectories(path.getParent());
         } catch (IOException e) {
-            LOGGER.error("Can't create folder by path", e);
+            log.error("Can't create folder by path", e);
         }
         try {
             XWPFDocument document = new XWPFDocument();
@@ -208,9 +199,9 @@ public class AlbumStorage implements Savable {
             out.close();
             document.close();
         } catch (FileAlreadyExistsException e) {
-            LOGGER.error("Can't create file in folder", e);
+            log.error("Can't create file in folder", e);
         } catch (IOException e) {
-            LOGGER.error("Failure in reading path", e);
+            log.error("Failure in reading path", e);
         }
     }
 

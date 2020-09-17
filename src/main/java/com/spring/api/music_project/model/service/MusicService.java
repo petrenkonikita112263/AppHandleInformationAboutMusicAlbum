@@ -1,8 +1,7 @@
 package com.spring.api.music_project.model.service;
 
 import com.spring.api.music_project.model.AlbumSummary;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,19 +13,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.*;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Class marked as service, that declare that this class represents a service -
  * a component of a service layer.
  * Also perform operations on user's requests. Caching is enabled.
  */
 @Service
+@Log4j2
 @CacheConfig(cacheNames = {"summaryList"})
 public class MusicService implements Musicable {
-
-    /**
-     * Constant for this class that add logging functionality.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(MusicService.class);
 
     /**
      * Private final field with instance that helps build URL in Spring.
@@ -37,12 +34,12 @@ public class MusicService implements Musicable {
      * Private field with instance of ConversionService that allows us
      * hook up our customer converter.
      */
-    private ConversionService conversionService;
+    private final ConversionService conversionService;
 
     /**
      * Private integer field of quantity of threads.
      */
-    private int threadItem;
+    private final int threadItem;
 
     /**
      * Constructor with arguments.
@@ -92,10 +89,10 @@ public class MusicService implements Musicable {
     /**
      * Additional method that sends url after asynchoronization to converter.
      *
-     * @param urlLink - build url that based on user's request
-     * @return - after converting brings back list of album in json or xml response
-     * @throws ExecutionException   - got error during retrieve the result from ExecutorService
-     * @throws InterruptedException - got error when some of the threads were interrupted
+     * @param urlLink build url that based on user's request
+     * @return after converting brings back list of album in json or xml response
+     * @throws ExecutionException   got error during retrieve the result from ExecutorService
+     * @throws InterruptedException got error when some of the threads were interrupted
      */
     private List<AlbumSummary> performAsynchronicity(String urlLink) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(threadItem);
@@ -107,19 +104,19 @@ public class MusicService implements Musicable {
             closeResource(listFuture, executorService);
         }
         while (!listFuture.isDone()) {
-            LOGGER.info("The future isn't done at "
+            log.info("The future isn't done at "
                     + LocalDateTime.now());
-            Thread.sleep(1000);
+            sleep(1000);
         }
-        LOGGER.info("The future has completed (done) at " + LocalDateTime.now());
+        log.info("The future has completed (done) at " + LocalDateTime.now());
         return listFuture.get();
     }
 
     /**
      * Additional method that stops Future and shutdown ExecutorService.
      *
-     * @param listFuture      - instance of Future
-     * @param executorService - instance of ExecutorService
+     * @param listFuture      instance of Future
+     * @param executorService instance of ExecutorService
      */
     private void closeResource(Future listFuture, ExecutorService executorService) {
         listFuture.cancel(true);
@@ -129,7 +126,7 @@ public class MusicService implements Musicable {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            LOGGER.error("One of the thread was interrupted while waiting, "
+            log.error("One of the thread was interrupted while waiting, "
                     + "so all threads will close forcibly", e);
             executorService.shutdownNow();
         }

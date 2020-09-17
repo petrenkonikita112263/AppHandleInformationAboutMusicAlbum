@@ -4,8 +4,7 @@ import com.spring.api.music_project.model.AlbumSummary;
 import com.spring.api.music_project.model.PosterImage;
 import com.spring.api.music_project.model.Tags;
 import com.spring.api.music_project.model.Tracks;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,12 +21,8 @@ import java.util.List;
  * for converting the Entity Base Attribute to another List<AlbumSummary> type.
  */
 @Component
+@Log4j2
 public class ContentConverter implements Converter<String, List<AlbumSummary>> {
-
-    /**
-     * Constant for this class that add logging functionality.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(ContentConverter.class);
 
     /**
      * Implementing method convert, that allow us to parse json document.
@@ -51,7 +46,7 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
                 try {
                     return summaryList;
                 } catch (NullPointerException e) {
-                    LOGGER.error("Nothing exists with that name", e);
+                    log.error("Nothing exists with that name", e);
                 }
             }
             if (rootObject.has("album")) {
@@ -59,11 +54,11 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
             }
             AlbumSummary newAlbum = new AlbumSummary();
             String albumName = null;
-            if (jsonAlbum.has("name")) {
+            if (jsonAlbum != null && jsonAlbum.has("name")) {
                 albumName = jsonAlbum.getString("name");
             }
             String artistName = null;
-            if (jsonAlbum.has("artist")) {
+            if (jsonAlbum != null && jsonAlbum.has("artist")) {
                 artistName = jsonAlbum.getString("artist");
             }
             newAlbum.setAlbumTitle(albumName);
@@ -103,7 +98,7 @@ public class ContentConverter implements Converter<String, List<AlbumSummary>> {
             newAlbum.setTags(tagsList);
             summaryList.add(newAlbum);
         } catch (JSONException e) {
-            LOGGER.error("Something went wrong, "
+            log.error("Something went wrong, "
                     + "can't value for object or object's not found", e);
         }
         return summaryList;

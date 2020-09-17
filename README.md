@@ -1,6 +1,6 @@
 # REST Api for Last.fm
 
-Here's my second project made according to standards of perfomance 2nd Lab's project from Netcracker's course "Java programming language".
+Here's my second project made according to standards of performance 2nd Lab's project from Netcracker's course "Java programming language".
 
 This RESTful application is based on Spring Boot and was created with Intellij IDEA on Java language. This helpful-app is receiving the data about music album in JSON or XML format according to introduced the title of the album and its artist.
 
@@ -19,3 +19,4 @@ http://localhost:9910/download/album/Robbie%20Williams/The%20Heavy%20Entertainme
 
 # Important
 The user should have installed *Lombok* plugin for app's work.
+Also, for additional access - use username and password from properties file.

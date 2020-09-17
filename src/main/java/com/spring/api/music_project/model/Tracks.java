@@ -8,7 +8,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString(includeFieldNames = true)
+@ToString
 public class Tracks {
 
     private String trackName;
@@ -30,7 +30,6 @@ public class Tracks {
     @Override
     public int hashCode() {
         int primaryNumber = 545;
-        int result = primaryNumber * Objects.hash(trackName, duration);
-        return result;
+        return primaryNumber * Objects.hash(trackName, duration);
     }
 }

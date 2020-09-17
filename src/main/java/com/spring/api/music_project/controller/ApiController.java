@@ -26,11 +26,11 @@ public class ApiController {
     /**
      * Private field with instance of the interface.
      */
-    private Musicable musicService;
+    private final Musicable musicService;
     /**
      * Private field with instance of the interface.
      */
-    private Savable albumStorage;
+    private final Savable albumStorage;
 
     /**
      * Constructor with arguments.

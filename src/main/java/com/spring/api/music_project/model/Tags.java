@@ -8,7 +8,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString(includeFieldNames = true)
+@ToString
 public class Tags {
 
     private String name;

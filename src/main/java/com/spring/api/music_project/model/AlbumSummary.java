@@ -9,7 +9,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@ToString(includeFieldNames = true)
+@ToString
 public class AlbumSummary {
 
     private String albumTitle;
@@ -37,7 +37,6 @@ public class AlbumSummary {
     @Override
     public int hashCode() {
         int primaryNumber = 74;
-        int result = primaryNumber * Objects.hash(albumTitle, artistName, listOfPosters, collectionOfTracks, tags);
-        return result;
+        return primaryNumber * Objects.hash(albumTitle, artistName, listOfPosters, collectionOfTracks, tags);
     }
 }
